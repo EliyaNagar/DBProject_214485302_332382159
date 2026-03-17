@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python generate_csv.py)",
+      "Bash(where python3:*)",
+      "Bash(where py:*)",
+      "Bash(ls /c/Python*/python.exe)",
+      "Read(//c/Users/eytan/AppData/Local/Programs/Python/**)",
+      "Bash(/c/Users/eytan/AppData/Local/Programs/Python/Python311/python.exe generate_csv.py)",
+      "Bash(/c/Users/eytan/AppData/Local/Programs/Python/Python311/python.exe generate_inserts.py)",
+      "Bash(ls -lh *.csv *.sql)"
+    ]
+  }
+}

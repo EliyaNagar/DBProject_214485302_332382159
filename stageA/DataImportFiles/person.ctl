@@ -1,0 +1,11 @@
+LOAD DATA
+INFILE 'person.csv'
+INTO TABLE PERSON
+FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"'
+TRAILING NULLCOLS
+(
+  ID,
+  FirstName,
+  LastName,
+  PhoneNum
+)
