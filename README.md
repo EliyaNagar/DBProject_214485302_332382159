@@ -51,13 +51,13 @@ The system is designed for hospital management and enables tracking of medical s
 
 ## System Design
 
-<!-- TODO: Add screenshots of screens created in Google AI Studio -->
+![alt text](images/image.png)
 
 ---
 
 ## ERD Diagram
 
-![ERD Diagram](images/ERD.png)
+![alt text](images/appImage.png)
 
 ---
 
@@ -109,7 +109,7 @@ CSV files were generated using a Python script (`generate_csv.py`).
 
 Data was imported into the database using SQL*Loader with control files (`.ctl`).
 
-<!-- TODO: Add screenshot of SQL*Loader execution -->
+![alt text](images/sqlLoader.png)
 
 ### Method 2: Programming — Python-generated INSERT statements (`Programing/`)
 
@@ -126,7 +126,6 @@ A Python script (`generate_inserts.py`) generates a SQL file with INSERT stateme
 | TREATMENT | 20,000 |
 | MEDICATIONS_GIVEN | 500 |
 
-<!-- TODO: Add screenshot of script execution -->
 
 ### Method 3: generatedata — INSERT statement generation (`generatedataFiles/`)
 
@@ -139,7 +138,7 @@ INSERT statements were generated for the following tables:
 | LAB | 500 |
 | MEDICATION | 500 |
 
-<!-- TODO: Add screenshot of generatedata usage -->
+![alt text](images/sqlLoader.png)
 
 ### Record Count Summary
 
@@ -170,12 +169,9 @@ Backup file is saved in the format: `backup_YYYY-MM-DD.dmp`
 
 Backup script: `backup.bat`
 
-<!-- TODO: Add screenshot of backup execution -->
 
 ### Restore
 
 Restore was performed on a different machine using Oracle Data Pump Import (`impdp`).
 
 Restore script: `restore.bat`
-
-<!-- TODO: Add screenshot of restore execution on another machine -->
