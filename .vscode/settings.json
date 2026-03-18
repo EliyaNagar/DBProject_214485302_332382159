@@ -1,0 +1,19 @@
+{
+    "sqltools.connections": [
+        {
+            "pgOptions": {
+                "ssl": {
+                    "rejectUnauthorized": false
+                }
+            },
+            "ssh": "Disabled",
+            "previewLimit": 50,
+            "server": "aws-1-eu-central-1.pooler.supabase.com",
+            "port": 6543,
+            "driver": "PostgreSQL",
+            "name": "Hospital",
+            "database": "postgres",
+            "username": "postgres.pslxaejgkeloehflbxit"
+        }
+    ]
+}
