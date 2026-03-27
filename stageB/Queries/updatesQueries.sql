@@ -13,14 +13,14 @@ WHERE ID IN (
 -- Update 2: מעבר דירה משפחתי (Family Move)
 -- עדכון כתובת לאיש צוות וכל מי שגר איתו באותה דירה
 UPDATE PERSON
-SET City = 'Haifa', -- לפה
-    Street = 'Herzl', 
-    HouseNumber = 10, 
-    ApartmentNumber = 2
-WHERE City = 'Tel Aviv' --מפה 
-  AND Street = 'HaYarkon' 
-  AND HouseNumber = 15 
-  AND ApartmentNumber = 4;
+SET City = 'Tel Aviv', -- לפה
+    Street = 'HaYarkon', 
+    HouseNumber = 15, 
+    ApartmentNumber = 4
+WHERE City = 'Haifa' --מפה 
+  AND Street = 'Herzl' 
+  AND HouseNumber = 10
+  AND ApartmentNumber = 2;
 
 
 -- Update 3: עדכון מחיר תרופות פופולריות

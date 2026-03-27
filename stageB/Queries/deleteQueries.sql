@@ -6,7 +6,7 @@ WITH LowUsageMeds AS (
         SELECT m_id 
         FROM MEDICATIONS_GIVEN 
         GROUP BY m_id 
-        HAVING COUNT(*) >= 20
+        HAVING COUNT(*) >= 68
     )
 )
 -- שלב ב: מחיקת הרישומים של התרופות האלו מטבלת הטיפולים (כדי לשחרר את המפתח הזר)
@@ -19,7 +19,7 @@ WHERE m_id NOT IN (
     SELECT m_id 
     FROM MEDICATIONS_GIVEN 
     GROUP BY m_id 
-    HAVING COUNT(*) >= 20
+    HAVING COUNT(*) >= 68
 );
 ------------------------------------------------------------------------------------------------
 
@@ -27,13 +27,13 @@ WHERE m_id NOT IN (
 -- פיטורי איש צוות עם ID מסוים (למשל 123456789)
 -- שלב 1: מחיקה מטבלת המשמרות (staff_id בתרשים)
 DELETE FROM SHIFT 
-WHERE staff_id = 213338429;
+WHERE staff_id = 21334321;
 -- שלב 2: מחיקה מטבלת התפקיד (בתרשים מופיע כ-ID)
 DELETE FROM ATTENDING_DOCTOR 
-WHERE doctor_id = 213338429;
+WHERE doctor_id = 21334321;
 -- שלב 3: מחיקה מטבלת הצוות הרפואי
 DELETE FROM MEDICAL_STAFF 
-WHERE id = 213338429;
+WHERE id = 21334321;
 
 
 
