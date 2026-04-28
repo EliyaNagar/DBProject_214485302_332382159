@@ -74,7 +74,7 @@ FROM DEPARTMENT d
 LEFT JOIN ATTENDING_DOCTOR ad ON d.DepID = ad.DepID
 -- חיבור לטיפולים שבוצעו על ידי אותם רופאים
 LEFT JOIN TREATMENT t ON ad.Doctor_ID = t.Doctor_ID 
-    AND t.Treatment_Date >= NOW() - INTERVAL '1 week' -- הגדרת "כרגע"
+    AND t.Treatment_Date >= NOW() - INTERVAL '1 month' -- הגדרת "כרגע"
 GROUP BY d.DepID, d.NumOfBeds
 ORDER BY Available_Beds DESC;
 --------------------------------------------------------------------------------
