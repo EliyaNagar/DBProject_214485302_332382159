@@ -74,7 +74,7 @@ FROM DEPARTMENT d
 LEFT JOIN ATTENDING_DOCTOR ad ON d.DepID = ad.DepID
 -- חיבור לטיפולים שבוצעו על ידי אותם רופאים
 LEFT JOIN TREATMENT t ON ad.Doctor_ID = t.Doctor_ID 
-    AND t.Treatment_Date >= NOW() - INTERVAL '1 month' -- הגדרת "כרגע"
+    AND t.Treatment_Date >= NOW() - INTERVAL '2 month' -- הגדרת "כרגע"
 GROUP BY d.DepID, d.NumOfBeds
 ORDER BY Available_Beds DESC;
 --------------------------------------------------------------------------------
@@ -215,7 +215,7 @@ ORDER BY (SELECT COUNT(*)
 --------------------------------------------------------------------------------
 
 -- Query 8: High-Risk Elderly Patients Audit (חולים בסיכון גבוה)
--- מסך: מעקב חולים מעל גיל 60 עם ריבוי טיפולים
+-- מסך: מעקב חולים מעל גיל 55 עם ריבוי טיפולים
 SELECT 
     p.FirstName, 
     p.LastName, 
@@ -225,7 +225,7 @@ FROM PERSON p
 JOIN PATIENT pat ON p.ID = pat.ID
 JOIN TREATMENT t ON pat.ID = t.Patient_ID
 WHERE pat.BirthDate <= CURRENT_DATE - INTERVAL '55 years'
-  AND t.Treatment_Date >= CURRENT_DATE - INTERVAL '1 month'
+  AND t.Treatment_Date >= CURRENT_DATE - INTERVAL '2 month'
 GROUP BY p.ID, p.FirstName, p.LastName, pat.BirthDate
 HAVING COUNT(t.Treatment_Date) >= 2;
 
