@@ -3,17 +3,22 @@
         {
             "pgOptions": {
                 "ssl": {
-                    "rejectUnauthorized": false
+                    "rejectUnauthorized": false,
+                    "requestCert": false
                 }
             },
             "ssh": "Disabled",
             "previewLimit": 50,
             "server": "aws-1-eu-central-1.pooler.supabase.com",
             "port": 6543,
+            "sshOptions": {
+                "port": 22
+            },
             "driver": "PostgreSQL",
             "name": "Hospital",
             "database": "postgres",
-            "username": "postgres.pslxaejgkeloehflbxit"
+            "username": "postgres.pslxaejgkeloehflbxit",
+            "password": "EliyaDavid123!"
         }
     ]
 }
