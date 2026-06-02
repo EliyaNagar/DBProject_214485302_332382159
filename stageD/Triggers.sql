@@ -1,14 +1,7 @@
-//TRIGGERS - יצירת טריגר לתיעוד שינויים בשכר של הצוות הרפואי
--- 1. יצירת טבלת המעקב (תריץ את זה פעם אחת במסד הנתונים)
-CREATE TABLE IF NOT EXISTS SALARY_AUDIT (
-    Audit_ID SERIAL PRIMARY KEY,
-    Staff_ID INT,
-    Old_Salary DECIMAL(10,2),
-    New_Salary DECIMAL(10,2),
-    Change_Date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+-- TRIGGERS - יצירת טריגר לתיעוד שינויים בשכר של הצוות הרפואי
+-- הערה: טבלת SALARY_AUDIT נוצרת ב-AlterTable.sql - יש להריץ אותו תחילה
 
--- 2. הפונקציה שמופעלת על ידי הטריגר
+-- הפונקציה שמופעלת על ידי הטריגר
 CREATE OR REPLACE FUNCTION log_salary_changes()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -34,7 +27,7 @@ EXECUTE FUNCTION log_salary_changes();
 
 
 
-//טריגר למניעת שיבוץ כפול של משמרות לאותו עובד באותו יום
+-- טריגר למניעת שיבוץ כפול של משמרות לאותו עובד באותו יום
 -- 1. הפונקציה שמופעלת על ידי הטריגר
 CREATE OR REPLACE FUNCTION prevent_double_shift()
 RETURNS TRIGGER AS $$
@@ -44,12 +37,12 @@ BEGIN
     -- בדיקה האם כבר קיימת משמרת לאותו עובד באותו תאריך
     SELECT COUNT(*) INTO v_shift_exists
     FROM SHIFT
-    WHERE Staff_ID = NEW.Staff_ID AND Date = NEW.Date;
+    WHERE Staff_ID = NEW.Staff_ID AND Shift_Date = NEW.Shift_Date;
 
     -- [אלמנט d] הסתעפות לבדיקת התוצאה
     IF v_shift_exists > 0 THEN
         -- [אלמנט f] שימוש ב-Exception כדי לעצור את ה-INSERT/UPDATE
-        RAISE EXCEPTION 'שגיאת שיבוץ: לאיש הצוות % כבר קיימת משמרת בתאריך %', NEW.Staff_ID, NEW.Date
+        RAISE EXCEPTION 'שגיאת שיבוץ: לאיש הצוות % כבר קיימת משמרת בתאריך %', NEW.Staff_ID, NEW.Shift_Date
             USING ERRCODE = 'P0003';
     END IF;
 

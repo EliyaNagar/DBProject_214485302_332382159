@@ -1,4 +1,4 @@
-//CURSOR - פונקציה לחישוב חשבונית מטופל בבית החולים
+-- CURSOR - פונקציה לחישוב חשבונית מטופל בבית החולים
 CREATE OR REPLACE FUNCTION calculate_patient_bill(p_patient_id INT)
 RETURNS DECIMAL(10,2) AS $$
 DECLARE
@@ -60,8 +60,8 @@ $$ LANGUAGE plpgsql;
 
 
 
-//REF CURSOR - פונקציה להחזרת רשימת הצוות במחלקה עם שכר מעל סכום מסוים
-//כדי לוודא שלא יחנק לנו הזיכרון בשרת, נשתמש ב-Ref Cursor שמאפשר שליפה דינמית של נתונים גדולים מבלי לטעון את כולם לזיכרון בבת אחת
+-- REF CURSOR - פונקציה להחזרת רשימת הצוות במחלקה עם שכר מעל סכום מסוים
+-- כדי לוודא שלא יחנק לנו הזיכרון בשרת, נשתמש ב-Ref Cursor שמאפשר שליפה דינמית של נתונים גדולים מבלי לטעון את כולם לזיכרון בבת אחת
 CREATE OR REPLACE FUNCTION get_department_roster_cursor(p_dep_id INT, p_min_salary DECIMAL)
 RETURNS REFCURSOR AS $$
 DECLARE
@@ -76,7 +76,7 @@ BEGIN
     IF v_dep_exists = 0 THEN
         -- [אלמנט f] זריקת חריגה במידה והמנהל הקיש קוד מחלקה שגוי במסך
         RAISE EXCEPTION 'מחלקה מספר % אינה קיימת במאגר הנתונים המרכזי', p_dep_id
-            USING ERRCODE = 'D0002';
+            USING ERRCODE = 'P0002';
     END IF;
 
     -- [אלמנט b] פתיחת ה-Ref Cursor עבור שאילתת השליפה המבוקשת

@@ -1,4 +1,4 @@
-//בונוס לרופאים על פי ביצועים - פרוצדורה שמעדכנת את השכר של רופאים שעומדים ביעד טיפולים מסוים
+-- בונוס לרופאים על פי ביצועים - פרוצדורה שמעדכנת את השכר של רופאים שעומדים ביעד טיפולים מסוים
 CREATE OR REPLACE PROCEDURE apply_salary_bonus_by_performance(p_min_treatments INT, p_bonus_percent DECIMAL)
 LANGUAGE plpgsql AS $$
 DECLARE
@@ -47,7 +47,7 @@ $$;
 
 
 
-//העברת רופא למחלקה אחרת - פרוצדורה שמעדכנת את המחלקה של רופא מסוים ומוחקת את המשמרות העתידיות שלו
+-- העברת רופא למחלקה אחרת - פרוצדורה שמעדכנת את המחלקה של רופא מסוים ומוחקת את המשמרות העתידיות שלו
 CREATE OR REPLACE PROCEDURE reassign_doctor_department(p_doc_id INT, p_new_dep_id INT)
 LANGUAGE plpgsql AS $$
 DECLARE
@@ -69,8 +69,8 @@ BEGIN
 
     -- [אלמנט c] פקודת DML 1: מחיקת משמרות עתידיות של הרופא מהיומן
     -- נמחק רק משמרות שעדיין לא התקיימו (ממחר והלאה)
-    DELETE FROM SHIFT 
-    WHERE Staff_ID = p_doc_id AND Date > CURRENT_DATE;
+    DELETE FROM SHIFT
+    WHERE Staff_ID = p_doc_id AND Shift_Date > CURRENT_DATE;
 
     -- [אלמנט c] פקודת DML 2: עדכון שיוך המחלקה של הרופא
     UPDATE ATTENDING_DOCTOR 
