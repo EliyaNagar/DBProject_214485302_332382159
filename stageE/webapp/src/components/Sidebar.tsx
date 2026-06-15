@@ -3,10 +3,10 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
 const NAV = [
-  { href: "/dashboard", label: "🏠 ראשי" },
-  { href: "/data", label: "🗄️ ניהול נתונים" },
-  { href: "/reports", label: "📊 דו\"חות" },
-  { href: "/actions", label: "⚙️ פעולות מתקדמות" },
+  { href: "/dashboard", label: "ראשי" },
+  { href: "/data", label: "ניהול נתונים" },
+  { href: "/reports", label: "דו\"חות" },
+  { href: "/actions", label: "פעולות מתקדמות" },
 ];
 
 export default function Sidebar() {
@@ -21,7 +21,7 @@ export default function Sidebar() {
   return (
     <aside className="sidebar">
       <div className="sidebar-brand">
-        🏥 בית חולים
+        בית חולים
         <small>מערכת ניהול</small>
       </div>
       {NAV.map((n) => {
@@ -34,7 +34,7 @@ export default function Sidebar() {
       })}
       <div className="sidebar-spacer" />
       <button className="btn btn-red" onClick={logout}>
-        🚪 התנתק
+        התנתק
       </button>
     </aside>
   );

@@ -24,9 +24,22 @@ function getPool(): Pool {
       connectionString,
       ssl: { rejectUnauthorized: false },
       max: 5,
+      keepAlive: true,            // keep TCP sockets alive — avoids handshake churn
+      idleTimeoutMillis: 30_000,  // keep warm clients ~30s (pg default 10s goes cold fast)
+      connectionTimeoutMillis: 8_000, // fail a stuck connect fast instead of hanging
     });
   }
   return pool;
+}
+
+/** Opens and releases one connection to pre-warm the pool (errors swallowed). */
+export async function warmPool(): Promise<void> {
+  try {
+    const client = await getPool().connect();
+    client.release();
+  } catch (e) {
+    console.error("DB warmup failed:", (e as Error).message);
+  }
 }
 
 /** Returns true if a connection can be opened (parity with verify_login's check). */

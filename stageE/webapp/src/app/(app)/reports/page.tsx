@@ -37,14 +37,14 @@ export default function ReportsPage() {
 
   return (
     <>
-      <TopBar title="📊 דוחות מערכת — הרצת שאילתות" />
+      <TopBar title="דוחות מערכת — הרצת שאילתות" />
       <div className="card" style={{ marginBottom: 20 }}>
         <div className="toolbar">
           <select className="select" value={sel}
             onChange={(e) => setSel(e.target.value)}>
             {reports.map((r) => <option key={r.key} value={r.key}>{r.label}</option>)}
           </select>
-          <button className="btn btn-green" onClick={run}>▶️ הרץ שאילתה</button>
+          <button className="btn btn-green" onClick={run}>הרץ שאילתה</button>
           <span className="toolbar-hint">{desc}</span>
         </div>
       </div>
