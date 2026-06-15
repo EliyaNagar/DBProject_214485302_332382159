@@ -1,43 +1,35 @@
 import tkinter as tk
-from tkinter import messagebox
+from PL import ui_common as ui
+from PL.crud_window import open_crud_window
+from PL.reports_window import open_reports_window
+from PL.actions_window import open_actions_window
+
 
 def open_dashboard(username):
-    # הגדרת החלון הראשי
+    # הגדרת החלון הראשי - תפריט ניווט לכל מסכי המערכת
     dash = tk.Tk()
     dash.title("מערכת ניהול בית חולים - תפריט ראשי")
-    dash.geometry("500x400")
-    dash.configure(bg="#ecf0f1")
+    dash.geometry("560x520")
+    ui.style_app(dash)
 
-    # כותרת קבלת פנים
-    lbl_welcome = tk.Label(dash, text=f"ברוך הבא, {username}!", font=("Arial", 18, "bold"), bg="#ecf0f1", fg="#2c3e50")
-    lbl_welcome.pack(pady=20)
+    ui.make_header(dash, "🏥 מערכת ניהול בית חולים")
 
-    # ---------------------------------------------------------
-    # פונקציות זמניות (Placeholders) עד שנבנה את המסכים האמיתיים
-    # ---------------------------------------------------------
-    def open_crud_screen():
-        messagebox.showinfo("בפיתוח", "כאן ייפתח מסך ניהול הנתונים (CRUD)\nמשיכת נתונים, עדכון, הוספה ומחיקה.")
+    tk.Label(dash, text=f"ברוך הבא, {username}!", font=(ui.FONT, 16, "bold"),
+             bg=ui.BG, fg=ui.PRIMARY).pack(pady=18)
 
-    def open_reports_screen():
-        messagebox.showinfo("בפיתוח", "כאן ייפתח מסך הדו\"חות\n(הרצת שאילתות משלב ב').")
+    tk.Label(dash, text="בחר מסך מהתפריט:", font=(ui.FONT, 11),
+             bg=ui.BG, fg="#555").pack()
 
-    def open_actions_screen():
-        messagebox.showinfo("בפיתוח", "כאן ייפתח מסך הפעולות המתקדמות\n(פונקציות ופרוצדורות משלב ד').")
+    btns = tk.Frame(dash, bg=ui.BG)
+    btns.pack(pady=20)
 
-    # ---------------------------------------------------------
-    # כפתורי הניווט
-    # ---------------------------------------------------------
-    btn_crud = tk.Button(dash, text="ניהול מטופלים וצוות (CRUD)", font=("Arial", 14), bg="#3498db", fg="white", width=25, command=open_crud_screen)
-    btn_crud.pack(pady=10)
+    ui.make_button(btns, "🗄️  ניהול נתונים (CRUD)",
+                   lambda: open_crud_window(dash), ui.ACCENT, 30).pack(pady=8)
+    ui.make_button(btns, "📊  דו\"חות ושאילתות (שלב ב')",
+                   lambda: open_reports_window(dash), ui.GREEN, 30).pack(pady=8)
+    ui.make_button(btns, "⚙️  פעולות מתקדמות (שלב ד')",
+                   lambda: open_actions_window(dash), ui.ORANGE, 30).pack(pady=8)
 
-    btn_reports = tk.Button(dash, text="הפקת דו\"חות מערכת (שאילתות)", font=("Arial", 14), bg="#2ecc71", fg="white", width=25, command=open_reports_screen)
-    btn_reports.pack(pady=10)
-
-    btn_actions = tk.Button(dash, text="פעולות מתקדמות (פונקציות DB)", font=("Arial", 14), bg="#f39c12", fg="white", width=25, command=open_actions_screen)
-    btn_actions.pack(pady=10)
-
-    # כפתור התנתקות שיסגור את התוכנה
-    btn_exit = tk.Button(dash, text="התנתק וצא", font=("Arial", 12), bg="#e74c3c", fg="white", width=15, command=dash.destroy)
-    btn_exit.pack(pady=30)
+    ui.make_button(dash, "🚪 התנתק וצא", dash.destroy, ui.RED, 16).pack(pady=30)
 
     dash.mainloop()
