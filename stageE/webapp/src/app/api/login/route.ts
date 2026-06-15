@@ -15,7 +15,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, message: "שגיאת רשת: לא ניתן להתחבר למסד הנתונים." }, { status: 503 });
   }
 
-  const token = signSession(username, process.env.SESSION_SECRET ?? "");
+  const token = await signSession(username, process.env.SESSION_SECRET ?? "");
   const res = NextResponse.json({ ok: true, message: `ברוך הבא למערכת, ${username}!` });
   res.cookies.set(SESSION_COOKIE, token, { httpOnly: true, sameSite: "lax", path: "/" });
   return res;

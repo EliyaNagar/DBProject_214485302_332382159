@@ -11,8 +11,17 @@ let pool: Pool | null = null;
 
 function getPool(): Pool {
   if (!pool) {
+    // Strip any `sslmode` query param: recent pg versions treat sslmode=require
+    // as verify-full, which overrides our `ssl` option and rejects the Supabase
+    // pooler's certificate chain. We want libpq's "require" semantics — encrypt
+    // without CA verification — which the explicit `ssl` object below provides
+    // (parity with the Python app's sslmode=require behavior).
+    const connectionString = (process.env.DATABASE_URL ?? "").replace(
+      /([?&])sslmode=[^&]*(&|$)/i,
+      (_m, pre: string, post: string) => (pre === "?" && post === "" ? "" : pre)
+    );
     pool = new Pool({
-      connectionString: process.env.DATABASE_URL,
+      connectionString,
       ssl: { rejectUnauthorized: false },
       max: 5,
     });
@@ -26,7 +35,8 @@ export async function canConnect(): Promise<boolean> {
     const client = await getPool().connect();
     client.release();
     return true;
-  } catch {
+  } catch (e) {
+    console.error("DB connection failed:", (e as Error).message);
     return false;
   }
 }

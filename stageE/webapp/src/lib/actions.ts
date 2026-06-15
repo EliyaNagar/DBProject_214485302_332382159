@@ -79,14 +79,17 @@ export async function runAction(
   switch (name) {
     case "calculate_patient_bill":
       return {
-        scalar: await callScalarFunction("SELECT calculate_patient_bill($1)", [
+        // Explicit ::type casts: node-postgres sends params untyped, so without
+        // these Postgres can't resolve the function overload (psycopg2 sent them
+        // typed). Casts mirror the Python int()/float() conversions.
+        scalar: await callScalarFunction("SELECT calculate_patient_bill($1::int)", [
           parseInt(params.patient_id, 10),
         ]),
       };
     case "get_department_roster_cursor":
       return {
         grid: await fetchRefcursor(
-          "SELECT get_department_roster_cursor($1, $2)",
+          "SELECT get_department_roster_cursor($1::int, $2::numeric)",
           [parseInt(params.dep_id, 10), parseFloat(params.min_salary)],
           "dept_staff_result_cursor"
         ),
@@ -94,13 +97,13 @@ export async function runAction(
     case "apply_salary_bonus_by_performance":
       return {
         notices: await callProcedure(
-          "CALL apply_salary_bonus_by_performance($1, $2)",
+          "CALL apply_salary_bonus_by_performance($1::int, $2::numeric)",
           [parseInt(params.min_treatments, 10), parseFloat(params.bonus_percent)]
         ),
       };
     case "reassign_doctor_department":
       return {
-        notices: await callProcedure("CALL reassign_doctor_department($1, $2)", [
+        notices: await callProcedure("CALL reassign_doctor_department($1::int, $2::int)", [
           parseInt(params.doc_id, 10),
           parseInt(params.new_dep_id, 10),
         ]),

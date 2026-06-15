@@ -3,12 +3,12 @@ import { SESSION_COOKIE, verifySession } from "@/lib/session";
 
 const PUBLIC_PATHS = ["/login"];
 
-export function middleware(req: NextRequest) {
+export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
   if (PUBLIC_PATHS.includes(pathname)) return NextResponse.next();
 
   const token = req.cookies.get(SESSION_COOKIE)?.value ?? "";
-  const user = verifySession(token, process.env.SESSION_SECRET ?? "");
+  const user = await verifySession(token, process.env.SESSION_SECRET ?? "");
   if (!user) {
     const url = req.nextUrl.clone();
     url.pathname = "/login";
