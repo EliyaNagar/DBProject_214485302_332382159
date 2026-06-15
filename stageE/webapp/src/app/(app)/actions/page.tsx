@@ -11,22 +11,22 @@ interface ActionUi { name: string; title: string; signature: string; color: stri
 
 const ACTIONS: ActionUi[] = [
   { name: "calculate_patient_bill", title: "פונקציה: חישוב חשבונית מטופל",
-    signature: "calculate_patient_bill(patient_id)", color: "var(--accent)",
+    signature: "calculate_patient_bill(patient_id)", color: "var(--primary)",
     params: [{ name: "patient_id", label: "מזהה מטופל:", default: "328308725" }] },
   { name: "get_department_roster_cursor", title: "פונקציה (REF CURSOR): צוות מחלקה לפי שכר",
-    signature: "get_department_roster_cursor(dep_id, min_salary)", color: "var(--accent)",
+    signature: "get_department_roster_cursor(dep_id, min_salary)", color: "var(--primary)",
     params: [
       { name: "dep_id", label: "מחלקה:", default: "2" },
       { name: "min_salary", label: "שכר מינ':", default: "0" },
     ] },
   { name: "apply_salary_bonus_by_performance", title: "פרוצדורה: בונוס שכר לרופאים מצטיינים",
-    signature: "apply_salary_bonus_by_performance(min_treatments, bonus_percent)", color: "var(--amber)",
+    signature: "apply_salary_bonus_by_performance(min_treatments, bonus_percent)", color: "var(--primary)",
     params: [
       { name: "min_treatments", label: "מינ' טיפולים:", default: "2" },
       { name: "bonus_percent", label: "אחוז בונוס:", default: "10" },
     ] },
   { name: "reassign_doctor_department", title: "פרוצדורה: העברת רופא למחלקה אחרת",
-    signature: "reassign_doctor_department(doc_id, new_dep_id)", color: "var(--amber)",
+    signature: "reassign_doctor_department(doc_id, new_dep_id)", color: "var(--primary)",
     params: [
       { name: "doc_id", label: "מזהה רופא:", default: "" },
       { name: "new_dep_id", label: "מחלקה חדשה:", default: "" },
