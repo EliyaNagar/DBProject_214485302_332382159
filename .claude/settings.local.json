@@ -8,7 +8,9 @@
       "Read(//c/Users/eytan/AppData/Local/Programs/Python/**)",
       "Bash(/c/Users/eytan/AppData/Local/Programs/Python/Python311/python.exe generate_csv.py)",
       "Bash(/c/Users/eytan/AppData/Local/Programs/Python/Python311/python.exe generate_inserts.py)",
-      "Bash(ls -lh *.csv *.sql)"
+      "Bash(ls -lh *.csv *.sql)",
+      "Bash(git add *)",
+      "Bash(git commit -m 'docs: design for webapp 3-color palette, emoji removal, KPI dashboard, DB warmup *)"
     ]
   }
 }
