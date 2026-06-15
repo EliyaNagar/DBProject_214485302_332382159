@@ -12,10 +12,10 @@
 
 ## File Structure
 
-All new code lives in a new `webapp/` directory at the repo root. The existing `stageE/` Python app is left untouched.
+All new code lives in a new `stageE/webapp/` directory, inside the existing `stageE/` folder. Nothing outside `stageE/` is changed, and the existing `stageE/` Python files are left untouched.
 
 ```
-webapp/
+stageE/webapp/
   package.json
   tsconfig.json
   next.config.mjs
@@ -73,18 +73,18 @@ webapp/
 ## Task 1: Scaffold the Next.js project and tooling
 
 **Files:**
-- Create: `webapp/package.json`
-- Create: `webapp/tsconfig.json`
-- Create: `webapp/next.config.mjs`
-- Create: `webapp/vitest.config.ts`
-- Create: `webapp/.gitignore`
-- Create: `webapp/.env.example`
-- Create: `webapp/.env.local`
-- Create: `webapp/src/app/globals.css` (placeholder, fleshed out in Task 3)
-- Create: `webapp/src/app/layout.tsx` (placeholder, fleshed out in Task 3)
-- Create: `webapp/src/app/page.tsx` (temporary redirect target)
+- Create: `stageE/webapp/package.json`
+- Create: `stageE/webapp/tsconfig.json`
+- Create: `stageE/webapp/next.config.mjs`
+- Create: `stageE/webapp/vitest.config.ts`
+- Create: `stageE/webapp/.gitignore`
+- Create: `stageE/webapp/.env.example`
+- Create: `stageE/webapp/.env.local`
+- Create: `stageE/webapp/src/app/globals.css` (placeholder, fleshed out in Task 3)
+- Create: `stageE/webapp/src/app/layout.tsx` (placeholder, fleshed out in Task 3)
+- Create: `stageE/webapp/src/app/page.tsx` (temporary redirect target)
 
-- [ ] **Step 1: Create `webapp/package.json`**
+- [ ] **Step 1: Create `stageE/webapp/package.json`**
 
 ```json
 {
@@ -116,7 +116,7 @@ webapp/
 }
 ```
 
-- [ ] **Step 2: Create `webapp/tsconfig.json`**
+- [ ] **Step 2: Create `stageE/webapp/tsconfig.json`**
 
 ```json
 {
@@ -142,7 +142,7 @@ webapp/
 }
 ```
 
-- [ ] **Step 3: Create `webapp/next.config.mjs`**
+- [ ] **Step 3: Create `stageE/webapp/next.config.mjs`**
 
 ```js
 /** @type {import('next').NextConfig} */
@@ -150,7 +150,7 @@ const nextConfig = {};
 export default nextConfig;
 ```
 
-- [ ] **Step 4: Create `webapp/vitest.config.ts`**
+- [ ] **Step 4: Create `stageE/webapp/vitest.config.ts`**
 
 ```ts
 import { defineConfig } from "vitest/config";
@@ -167,7 +167,7 @@ export default defineConfig({
 });
 ```
 
-- [ ] **Step 5: Create `webapp/.gitignore`**
+- [ ] **Step 5: Create `stageE/webapp/.gitignore`**
 
 ```
 node_modules
@@ -177,7 +177,7 @@ node_modules
 next-env.d.ts
 ```
 
-- [ ] **Step 6: Create `webapp/.env.example`**
+- [ ] **Step 6: Create `stageE/webapp/.env.example`**
 
 ```
 # Copy to .env.local and fill in. Values below match the existing stageE app.
@@ -189,7 +189,7 @@ APP_PASSWORD=1234
 SESSION_SECRET=change-me-to-a-long-random-string
 ```
 
-- [ ] **Step 7: Create `webapp/.env.local` with the real DB values (from `stageE/DAL/database.py`)**
+- [ ] **Step 7: Create `stageE/webapp/.env.local` with the real DB values (from `stageE/DAL/database.py`)**
 
 ```
 DATABASE_URL=postgresql://postgres.pslxaejgkeloehflbxit:EliyaDavid123!@aws-1-eu-central-1.pooler.supabase.com:6543/postgres?sslmode=require
@@ -198,14 +198,14 @@ APP_PASSWORD=1234
 SESSION_SECRET=dev-secret-please-change-0123456789abcdef
 ```
 
-- [ ] **Step 8: Create a temporary `webapp/src/app/globals.css`**
+- [ ] **Step 8: Create a temporary `stageE/webapp/src/app/globals.css`**
 
 ```css
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
 ```
 
-- [ ] **Step 9: Create a temporary `webapp/src/app/layout.tsx`**
+- [ ] **Step 9: Create a temporary `stageE/webapp/src/app/layout.tsx`**
 
 ```tsx
 import "./globals.css";
@@ -219,7 +219,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 }
 ```
 
-- [ ] **Step 10: Create a temporary `webapp/src/app/page.tsx`**
+- [ ] **Step 10: Create a temporary `stageE/webapp/src/app/page.tsx`**
 
 ```tsx
 import { redirect } from "next/navigation";
@@ -231,16 +231,16 @@ export default function Home() {
 
 - [ ] **Step 11: Install dependencies and verify the dev server boots**
 
-Run: `cd webapp && npm install`
+Run: `cd stageE/webapp && npm install`
 Expected: dependencies install with no errors.
 
-Run: `cd webapp && npm run build`
+Run: `cd stageE/webapp && npm run build`
 Expected: `next build` completes (the home route redirects; that is fine).
 
 - [ ] **Step 12: Commit**
 
 ```bash
-git add webapp/package.json webapp/tsconfig.json webapp/next.config.mjs webapp/vitest.config.ts webapp/.gitignore webapp/.env.example webapp/src/app
+git add stageE/webapp/package.json stageE/webapp/tsconfig.json stageE/webapp/next.config.mjs stageE/webapp/vitest.config.ts stageE/webapp/.gitignore stageE/webapp/.env.example stageE/webapp/src/app
 git commit -m "chore: scaffold Next.js webapp"
 ```
 
@@ -253,11 +253,11 @@ git commit -m "chore: scaffold Next.js webapp"
 The Python DAL builds SQL strings inline. We extract that string-building into **pure functions** so it can be unit-tested without a database. Execution wrappers (Task 3) call these builders.
 
 **Files:**
-- Create: `webapp/src/types.ts`
-- Create: `webapp/src/lib/queryBuilders.ts`
-- Test: `webapp/tests/queryBuilders.test.ts`
+- Create: `stageE/webapp/src/types.ts`
+- Create: `stageE/webapp/src/lib/queryBuilders.ts`
+- Test: `stageE/webapp/tests/queryBuilders.test.ts`
 
-- [ ] **Step 1: Create shared types `webapp/src/types.ts`**
+- [ ] **Step 1: Create shared types `stageE/webapp/src/types.ts`**
 
 ```ts
 export interface GridResult {
@@ -297,7 +297,7 @@ export interface BuiltQuery {
 }
 ```
 
-- [ ] **Step 2: Write the failing test `webapp/tests/queryBuilders.test.ts`**
+- [ ] **Step 2: Write the failing test `stageE/webapp/tests/queryBuilders.test.ts`**
 
 ```ts
 import { describe, it, expect } from "vitest";
@@ -350,10 +350,10 @@ describe("buildFetchRow", () => {
 
 - [ ] **Step 3: Run the test to verify it fails**
 
-Run: `cd webapp && npx vitest run tests/queryBuilders.test.ts`
+Run: `cd stageE/webapp && npx vitest run tests/queryBuilders.test.ts`
 Expected: FAIL — cannot resolve `@/lib/queryBuilders` / functions not defined.
 
-- [ ] **Step 4: Implement `webapp/src/lib/queryBuilders.ts`**
+- [ ] **Step 4: Implement `stageE/webapp/src/lib/queryBuilders.ts`**
 
 ```ts
 import type { BuiltQuery } from "@/types";
@@ -401,13 +401,13 @@ export function buildFetchRow(
 
 - [ ] **Step 5: Run the test to verify it passes**
 
-Run: `cd webapp && npx vitest run tests/queryBuilders.test.ts`
+Run: `cd stageE/webapp && npx vitest run tests/queryBuilders.test.ts`
 Expected: PASS (4 tests).
 
 - [ ] **Step 6: Commit**
 
 ```bash
-git add webapp/src/types.ts webapp/src/lib/queryBuilders.ts webapp/tests/queryBuilders.test.ts
+git add stageE/webapp/src/types.ts stageE/webapp/src/lib/queryBuilders.ts stageE/webapp/tests/queryBuilders.test.ts
 git commit -m "feat: add shared types and pure SQL query builders with tests"
 ```
 
@@ -418,9 +418,9 @@ git commit -m "feat: add shared types and pure SQL query builders with tests"
 Ports `DAL/database.py` execution behavior to `pg`, including REF CURSOR and NOTICE capture. These functions touch the live DB, so they are verified manually (Step 7), not in CI unit tests.
 
 **Files:**
-- Create: `webapp/src/lib/db.ts`
+- Create: `stageE/webapp/src/lib/db.ts`
 
-- [ ] **Step 1: Create the pool and select/select-helpers in `webapp/src/lib/db.ts`**
+- [ ] **Step 1: Create the pool and select/select-helpers in `stageE/webapp/src/lib/db.ts`**
 
 ```ts
 import { Pool, type PoolClient } from "pg";
@@ -464,7 +464,7 @@ export async function runSelect(sql: string, params: unknown[] = []): Promise<Gr
 }
 ```
 
-- [ ] **Step 2: Add CRUD execution wrappers to `webapp/src/lib/db.ts`**
+- [ ] **Step 2: Add CRUD execution wrappers to `stageE/webapp/src/lib/db.ts`**
 
 ```ts
 export async function fetchRow(
@@ -504,7 +504,7 @@ export async function deleteRow(
 }
 ```
 
-- [ ] **Step 3: Add the stored-function / procedure wrappers to `webapp/src/lib/db.ts`**
+- [ ] **Step 3: Add the stored-function / procedure wrappers to `stageE/webapp/src/lib/db.ts`**
 
 ```ts
 /** Calls a function returning a single scalar (e.g. calculate_patient_bill). */
@@ -568,7 +568,7 @@ export async function fetchRefcursor(
 }
 ```
 
-- [ ] **Step 4: Add a temporary smoke-test script `webapp/scripts/smoke.mjs`**
+- [ ] **Step 4: Add a temporary smoke-test script `stageE/webapp/scripts/smoke.mjs`**
 
 ```js
 import "dotenv/config";
@@ -589,13 +589,13 @@ The cleanest connectivity check happens through the login route in Task 8. If yo
 
 - [ ] **Step 6: Type-check**
 
-Run: `cd webapp && npx tsc --noEmit`
+Run: `cd stageE/webapp && npx tsc --noEmit`
 Expected: no type errors in `db.ts`.
 
 - [ ] **Step 7: Commit**
 
 ```bash
-git add webapp/src/lib/db.ts
+git add stageE/webapp/src/lib/db.ts
 git commit -m "feat: add pg execution layer (CRUD, scalar fn, procedure notices, ref cursor)"
 ```
 
@@ -608,10 +608,10 @@ git commit -m "feat: add pg execution layer (CRUD, scalar fn, procedure notices,
 Ports all 14 table definitions. The test guards integrity (count, required fields) rather than re-asserting every string.
 
 **Files:**
-- Create: `webapp/src/lib/metadata.ts`
-- Test: `webapp/tests/metadata.test.ts`
+- Create: `stageE/webapp/src/lib/metadata.ts`
+- Test: `stageE/webapp/tests/metadata.test.ts`
 
-- [ ] **Step 1: Write the failing test `webapp/tests/metadata.test.ts`**
+- [ ] **Step 1: Write the failing test `stageE/webapp/tests/metadata.test.ts`**
 
 ```ts
 import { describe, it, expect } from "vitest";
@@ -653,10 +653,10 @@ describe("metadata", () => {
 
 - [ ] **Step 2: Run the test to verify it fails**
 
-Run: `cd webapp && npx vitest run tests/metadata.test.ts`
+Run: `cd stageE/webapp && npx vitest run tests/metadata.test.ts`
 Expected: FAIL — module not found.
 
-- [ ] **Step 3: Implement `webapp/src/lib/metadata.ts` (FK queries + helper)**
+- [ ] **Step 3: Implement `stageE/webapp/src/lib/metadata.ts` (FK queries + helper)**
 
 ```ts
 import type { ColumnMeta, TableMeta } from "@/types";
@@ -692,7 +692,7 @@ function col(
 }
 ```
 
-- [ ] **Step 4: Add the 14 table definitions to `webapp/src/lib/metadata.ts`**
+- [ ] **Step 4: Add the 14 table definitions to `stageE/webapp/src/lib/metadata.ts`**
 
 Port each entry verbatim from `stageE/BL/db_metadata.py`. Append:
 
@@ -897,13 +897,13 @@ export function tableList(): { key: string; label: string }[] {
 
 - [ ] **Step 5: Run the test to verify it passes**
 
-Run: `cd webapp && npx vitest run tests/metadata.test.ts`
+Run: `cd stageE/webapp && npx vitest run tests/metadata.test.ts`
 Expected: PASS (5 tests).
 
 - [ ] **Step 6: Commit**
 
 ```bash
-git add webapp/src/lib/metadata.ts webapp/tests/metadata.test.ts
+git add stageE/webapp/src/lib/metadata.ts stageE/webapp/tests/metadata.test.ts
 git commit -m "feat: port table metadata for all 14 tables with integrity tests"
 ```
 
@@ -912,10 +912,10 @@ git commit -m "feat: port table metadata for all 14 tables with integrity tests"
 ## Task 5: Reports module (port of `reports_logic.py`) (TDD)
 
 **Files:**
-- Create: `webapp/src/lib/reports.ts`
-- Test: `webapp/tests/reports.test.ts`
+- Create: `stageE/webapp/src/lib/reports.ts`
+- Test: `stageE/webapp/tests/reports.test.ts`
 
-- [ ] **Step 1: Write the failing test `webapp/tests/reports.test.ts`**
+- [ ] **Step 1: Write the failing test `stageE/webapp/tests/reports.test.ts`**
 
 ```ts
 import { describe, it, expect } from "vitest";
@@ -950,10 +950,10 @@ describe("reports", () => {
 
 - [ ] **Step 2: Run the test to verify it fails**
 
-Run: `cd webapp && npx vitest run tests/reports.test.ts`
+Run: `cd stageE/webapp && npx vitest run tests/reports.test.ts`
 Expected: FAIL — module not found.
 
-- [ ] **Step 3: Implement `webapp/src/lib/reports.ts`**
+- [ ] **Step 3: Implement `stageE/webapp/src/lib/reports.ts`**
 
 Port the 5 SQL strings verbatim from `stageE/BL/reports_logic.py`. Add chart hints for the two aggregate reports (`blood_type`, `drug_revenue`).
 
@@ -1063,13 +1063,13 @@ export function reportList(): { key: string; label: string; desc: string }[] {
 
 - [ ] **Step 4: Run the test to verify it passes**
 
-Run: `cd webapp && npx vitest run tests/reports.test.ts`
+Run: `cd stageE/webapp && npx vitest run tests/reports.test.ts`
 Expected: PASS (5 tests).
 
 - [ ] **Step 5: Commit**
 
 ```bash
-git add webapp/src/lib/reports.ts webapp/tests/reports.test.ts
+git add stageE/webapp/src/lib/reports.ts stageE/webapp/tests/reports.test.ts
 git commit -m "feat: port stage-B reports with chart hints and tests"
 ```
 
@@ -1080,9 +1080,9 @@ git commit -m "feat: port stage-B reports with chart hints and tests"
 A declarative description of each function/procedure plus an executor. No DB-independent logic to unit test beyond the registry; verified end-to-end in Task 14.
 
 **Files:**
-- Create: `webapp/src/lib/actions.ts`
+- Create: `stageE/webapp/src/lib/actions.ts`
 
-- [ ] **Step 1: Implement `webapp/src/lib/actions.ts`**
+- [ ] **Step 1: Implement `stageE/webapp/src/lib/actions.ts`**
 
 ```ts
 import {
@@ -1200,13 +1200,13 @@ export async function runAction(
 
 - [ ] **Step 2: Type-check**
 
-Run: `cd webapp && npx tsc --noEmit`
+Run: `cd stageE/webapp && npx tsc --noEmit`
 Expected: no type errors.
 
 - [ ] **Step 3: Commit**
 
 ```bash
-git add webapp/src/lib/actions.ts
+git add stageE/webapp/src/lib/actions.ts
 git commit -m "feat: add stage-D actions registry and executor"
 ```
 
@@ -1217,11 +1217,11 @@ git commit -m "feat: add stage-D actions registry and executor"
 A minimal signed cookie. We sign `username` with HMAC-SHA256 using `SESSION_SECRET` so the cookie cannot be forged. Pure sign/verify functions are unit-tested.
 
 **Files:**
-- Create: `webapp/src/lib/session.ts`
-- Create: `webapp/src/middleware.ts`
-- Test: `webapp/tests/session.test.ts`
+- Create: `stageE/webapp/src/lib/session.ts`
+- Create: `stageE/webapp/src/middleware.ts`
+- Test: `stageE/webapp/tests/session.test.ts`
 
-- [ ] **Step 1: Write the failing test `webapp/tests/session.test.ts`**
+- [ ] **Step 1: Write the failing test `stageE/webapp/tests/session.test.ts`**
 
 ```ts
 import { describe, it, expect } from "vitest";
@@ -1254,10 +1254,10 @@ describe("session", () => {
 
 - [ ] **Step 2: Run the test to verify it fails**
 
-Run: `cd webapp && npx vitest run tests/session.test.ts`
+Run: `cd stageE/webapp && npx vitest run tests/session.test.ts`
 Expected: FAIL — module not found.
 
-- [ ] **Step 3: Implement `webapp/src/lib/session.ts`**
+- [ ] **Step 3: Implement `stageE/webapp/src/lib/session.ts`**
 
 ```ts
 import crypto from "crypto";
@@ -1293,10 +1293,10 @@ export function verifySession(token: string, secret: string): string | null {
 
 - [ ] **Step 4: Run the test to verify it passes**
 
-Run: `cd webapp && npx vitest run tests/session.test.ts`
+Run: `cd stageE/webapp && npx vitest run tests/session.test.ts`
 Expected: PASS (4 tests).
 
-- [ ] **Step 5: Implement `webapp/src/middleware.ts`**
+- [ ] **Step 5: Implement `stageE/webapp/src/middleware.ts`**
 
 ```ts
 import { NextResponse, type NextRequest } from "next/server";
@@ -1327,7 +1327,7 @@ export const config = {
 - [ ] **Step 6: Commit**
 
 ```bash
-git add webapp/src/lib/session.ts webapp/src/middleware.ts webapp/tests/session.test.ts
+git add stageE/webapp/src/lib/session.ts stageE/webapp/src/middleware.ts stageE/webapp/tests/session.test.ts
 git commit -m "feat: add signed session helpers and auth middleware"
 ```
 
@@ -1338,11 +1338,11 @@ git commit -m "feat: add signed session helpers and auth middleware"
 Sets the professional look: palette tokens, rounded radii, Heebo font, RTL. Adds the toast provider used app-wide (replaces Tkinter messagebox).
 
 **Files:**
-- Modify: `webapp/src/app/globals.css` (replace placeholder)
-- Modify: `webapp/src/app/layout.tsx` (replace placeholder)
-- Create: `webapp/src/components/Toast.tsx`
+- Modify: `stageE/webapp/src/app/globals.css` (replace placeholder)
+- Modify: `stageE/webapp/src/app/layout.tsx` (replace placeholder)
+- Create: `stageE/webapp/src/components/Toast.tsx`
 
-- [ ] **Step 1: Replace `webapp/src/app/globals.css` with the theme**
+- [ ] **Step 1: Replace `stageE/webapp/src/app/globals.css` with the theme**
 
 ```css
 :root {
@@ -1401,7 +1401,7 @@ button { font-family: inherit; cursor: pointer; border: none; }
 .input:read-only { background: #f1f5f9; color: var(--muted); }
 ```
 
-- [ ] **Step 2: Replace `webapp/src/app/layout.tsx` (load Heebo, mount ToastProvider)**
+- [ ] **Step 2: Replace `stageE/webapp/src/app/layout.tsx` (load Heebo, mount ToastProvider)**
 
 ```tsx
 import "./globals.css";
@@ -1423,7 +1423,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 }
 ```
 
-- [ ] **Step 3: Implement `webapp/src/components/Toast.tsx`**
+- [ ] **Step 3: Implement `stageE/webapp/src/components/Toast.tsx`**
 
 ```tsx
 "use client";
@@ -1473,13 +1473,13 @@ export function useToast(): ToastApi {
 
 - [ ] **Step 4: Verify the build compiles**
 
-Run: `cd webapp && npm run build`
+Run: `cd stageE/webapp && npm run build`
 Expected: build succeeds (Heebo font downloads at build time; requires internet).
 
 - [ ] **Step 5: Commit**
 
 ```bash
-git add webapp/src/app/globals.css webapp/src/app/layout.tsx webapp/src/components/Toast.tsx
+git add stageE/webapp/src/app/globals.css stageE/webapp/src/app/layout.tsx stageE/webapp/src/components/Toast.tsx
 git commit -m "feat: add theme, RTL root layout with Heebo, and toast system"
 ```
 
@@ -1488,11 +1488,11 @@ git commit -m "feat: add theme, RTL root layout with Heebo, and toast system"
 ## Task 9: Login API + login page
 
 **Files:**
-- Create: `webapp/src/app/api/login/route.ts`
-- Create: `webapp/src/app/api/logout/route.ts`
-- Create: `webapp/src/app/login/page.tsx`
+- Create: `stageE/webapp/src/app/api/login/route.ts`
+- Create: `stageE/webapp/src/app/api/logout/route.ts`
+- Create: `stageE/webapp/src/app/login/page.tsx`
 
-- [ ] **Step 1: Implement `webapp/src/app/api/login/route.ts`**
+- [ ] **Step 1: Implement `stageE/webapp/src/app/api/login/route.ts`**
 
 Mirrors `verify_login`: validates non-empty, checks `admin`/`1234`, then confirms DB connectivity, then sets the session cookie.
 
@@ -1521,7 +1521,7 @@ export async function POST(req: Request) {
 }
 ```
 
-- [ ] **Step 2: Implement `webapp/src/app/api/logout/route.ts`**
+- [ ] **Step 2: Implement `stageE/webapp/src/app/api/logout/route.ts`**
 
 ```ts
 import { NextResponse } from "next/server";
@@ -1534,7 +1534,7 @@ export async function POST() {
 }
 ```
 
-- [ ] **Step 3: Implement `webapp/src/app/login/page.tsx`**
+- [ ] **Step 3: Implement `stageE/webapp/src/app/login/page.tsx`**
 
 ```tsx
 "use client";
@@ -1598,7 +1598,7 @@ export default function LoginPage() {
 
 - [ ] **Step 4: Manual verification**
 
-Run: `cd webapp && npm run dev`
+Run: `cd stageE/webapp && npm run dev`
 - Visit `http://localhost:3000/dashboard` → should redirect to `/login` (middleware).
 - Enter wrong credentials → red toast "שם משתמש או סיסמה שגויים".
 - Enter `admin` / `1234` → success toast, redirect to `/dashboard` (dashboard built next; a 404/empty page here is acceptable until Task 10).
@@ -1606,7 +1606,7 @@ Run: `cd webapp && npm run dev`
 - [ ] **Step 5: Commit**
 
 ```bash
-git add webapp/src/app/api/login webapp/src/app/api/logout webapp/src/app/login
+git add stageE/webapp/src/app/api/login stageE/webapp/src/app/api/logout stageE/webapp/src/app/login
 git commit -m "feat: add login/logout API and login page"
 ```
 
@@ -1615,13 +1615,13 @@ git commit -m "feat: add login/logout API and login page"
 ## Task 10: App shell (sidebar + topbar) and dashboard
 
 **Files:**
-- Create: `webapp/src/components/Sidebar.tsx`
-- Create: `webapp/src/components/TopBar.tsx`
-- Create: `webapp/src/components/Card.tsx`
-- Create: `webapp/src/app/(app)/layout.tsx`
-- Create: `webapp/src/app/(app)/dashboard/page.tsx`
+- Create: `stageE/webapp/src/components/Sidebar.tsx`
+- Create: `stageE/webapp/src/components/TopBar.tsx`
+- Create: `stageE/webapp/src/components/Card.tsx`
+- Create: `stageE/webapp/src/app/(app)/layout.tsx`
+- Create: `stageE/webapp/src/app/(app)/dashboard/page.tsx`
 
-- [ ] **Step 1: Implement `webapp/src/components/Card.tsx`**
+- [ ] **Step 1: Implement `stageE/webapp/src/components/Card.tsx`**
 
 ```tsx
 export default function Card({ children, style }: { children: React.ReactNode; style?: React.CSSProperties }) {
@@ -1636,7 +1636,7 @@ export default function Card({ children, style }: { children: React.ReactNode; s
 }
 ```
 
-- [ ] **Step 2: Implement `webapp/src/components/Sidebar.tsx`**
+- [ ] **Step 2: Implement `stageE/webapp/src/components/Sidebar.tsx`**
 
 ```tsx
 "use client";
@@ -1687,7 +1687,7 @@ export default function Sidebar() {
 }
 ```
 
-- [ ] **Step 3: Implement `webapp/src/components/TopBar.tsx`**
+- [ ] **Step 3: Implement `stageE/webapp/src/components/TopBar.tsx`**
 
 ```tsx
 export default function TopBar({ title }: { title: string }) {
@@ -1702,7 +1702,7 @@ export default function TopBar({ title }: { title: string }) {
 }
 ```
 
-- [ ] **Step 4: Implement `webapp/src/app/(app)/layout.tsx`**
+- [ ] **Step 4: Implement `stageE/webapp/src/app/(app)/layout.tsx`**
 
 ```tsx
 import Sidebar from "@/components/Sidebar";
@@ -1717,7 +1717,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 }
 ```
 
-- [ ] **Step 5: Implement `webapp/src/app/(app)/dashboard/page.tsx`**
+- [ ] **Step 5: Implement `stageE/webapp/src/app/(app)/dashboard/page.tsx`**
 
 ```tsx
 import TopBar from "@/components/TopBar";
@@ -1751,7 +1751,7 @@ export default function DashboardPage() {
 
 - [ ] **Step 6: Manual verification**
 
-Run: `cd webapp && npm run dev`
+Run: `cd stageE/webapp && npm run dev`
 - Log in, land on `/dashboard`: sidebar on the right (RTL), three rounded tiles, top bar.
 - Click each tile → routes change (pages built in later tasks may 404 until then).
 - Click "התנתק" → returns to `/login`.
@@ -1759,7 +1759,7 @@ Run: `cd webapp && npm run dev`
 - [ ] **Step 7: Commit**
 
 ```bash
-git add webapp/src/components/Sidebar.tsx webapp/src/components/TopBar.tsx webapp/src/components/Card.tsx "webapp/src/app/(app)"
+git add stageE/webapp/src/components/Sidebar.tsx stageE/webapp/src/components/TopBar.tsx stageE/webapp/src/components/Card.tsx "stageE/webapp/src/app/(app)"
 git commit -m "feat: add app shell (sidebar, topbar) and dashboard"
 ```
 
@@ -1768,11 +1768,11 @@ git commit -m "feat: add app shell (sidebar, topbar) and dashboard"
 ## Task 11: Reusable DataTable, Modal, and FormField components
 
 **Files:**
-- Create: `webapp/src/components/DataTable.tsx`
-- Create: `webapp/src/components/Modal.tsx`
-- Create: `webapp/src/components/FormField.tsx`
+- Create: `stageE/webapp/src/components/DataTable.tsx`
+- Create: `stageE/webapp/src/components/Modal.tsx`
+- Create: `stageE/webapp/src/components/FormField.tsx`
 
-- [ ] **Step 1: Implement `webapp/src/components/DataTable.tsx`**
+- [ ] **Step 1: Implement `stageE/webapp/src/components/DataTable.tsx`**
 
 ```tsx
 import type { GridResult } from "@/types";
@@ -1815,7 +1815,7 @@ export default function DataTable({ data }: { data: GridResult | null }) {
 }
 ```
 
-- [ ] **Step 2: Implement `webapp/src/components/Modal.tsx`**
+- [ ] **Step 2: Implement `stageE/webapp/src/components/Modal.tsx`**
 
 ```tsx
 "use client";
@@ -1843,7 +1843,7 @@ export default function Modal({
 }
 ```
 
-- [ ] **Step 3: Implement `webapp/src/components/FormField.tsx`**
+- [ ] **Step 3: Implement `stageE/webapp/src/components/FormField.tsx`**
 
 Renders the right control for a column: FK dropdown, fixed-option dropdown, or text input. Read-only when a pk is locked.
 
@@ -1908,13 +1908,13 @@ export default function FormField({
 
 - [ ] **Step 4: Type-check**
 
-Run: `cd webapp && npx tsc --noEmit`
+Run: `cd stageE/webapp && npx tsc --noEmit`
 Expected: no type errors.
 
 - [ ] **Step 5: Commit**
 
 ```bash
-git add webapp/src/components/DataTable.tsx webapp/src/components/Modal.tsx webapp/src/components/FormField.tsx
+git add stageE/webapp/src/components/DataTable.tsx stageE/webapp/src/components/Modal.tsx stageE/webapp/src/components/FormField.tsx
 git commit -m "feat: add DataTable, Modal, and FormField components"
 ```
 
@@ -1925,12 +1925,12 @@ git commit -m "feat: add DataTable, Modal, and FormField components"
 Implements the CRUD endpoints. FK option lists for forms are resolved here using the FK SQL stored in metadata.
 
 **Files:**
-- Create: `webapp/src/app/api/tables/route.ts`
-- Create: `webapp/src/app/api/tables/[key]/route.ts`
-- Create: `webapp/src/app/api/tables/[key]/meta/route.ts`
-- Create: `webapp/src/app/api/tables/[key]/row/route.ts`
+- Create: `stageE/webapp/src/app/api/tables/route.ts`
+- Create: `stageE/webapp/src/app/api/tables/[key]/route.ts`
+- Create: `stageE/webapp/src/app/api/tables/[key]/meta/route.ts`
+- Create: `stageE/webapp/src/app/api/tables/[key]/row/route.ts`
 
-- [ ] **Step 1: Implement `webapp/src/app/api/tables/route.ts`**
+- [ ] **Step 1: Implement `stageE/webapp/src/app/api/tables/route.ts`**
 
 ```ts
 import { NextResponse } from "next/server";
@@ -1941,7 +1941,7 @@ export async function GET() {
 }
 ```
 
-- [ ] **Step 2: Implement `webapp/src/app/api/tables/[key]/meta/route.ts`**
+- [ ] **Step 2: Implement `stageE/webapp/src/app/api/tables/[key]/meta/route.ts`**
 
 Returns each column plus, for FK columns, the `{value,label}` options (parity with `load_fk_options`).
 
@@ -1971,7 +1971,7 @@ export async function GET(_req: Request, { params }: { params: Promise<{ key: st
 }
 ```
 
-- [ ] **Step 3: Implement `webapp/src/app/api/tables/[key]/row/route.ts`**
+- [ ] **Step 3: Implement `stageE/webapp/src/app/api/tables/[key]/row/route.ts`**
 
 Fetches a single row by PK for the update flow. PK values arrive as a JSON-encoded `pk` query param (object of `{colName: value}`).
 
@@ -1995,7 +1995,7 @@ export async function GET(req: Request, { params }: { params: Promise<{ key: str
 }
 ```
 
-- [ ] **Step 4: Implement `webapp/src/app/api/tables/[key]/route.ts` (GET grid + POST/PUT/DELETE)**
+- [ ] **Step 4: Implement `stageE/webapp/src/app/api/tables/[key]/route.ts` (GET grid + POST/PUT/DELETE)**
 
 ```ts
 import { NextResponse } from "next/server";
@@ -2053,7 +2053,7 @@ export async function DELETE(req: Request, { params }: { params: Promise<{ key: 
 
 - [ ] **Step 5: Manual verification (with the app running)**
 
-Run: `cd webapp && npm run dev`
+Run: `cd stageE/webapp && npm run dev`
 - `GET http://localhost:3000/api/tables` → 14 entries.
 - `GET http://localhost:3000/api/tables/PERSON` → `{columns, rows}`.
 - `GET http://localhost:3000/api/tables/PERSON/meta` → columns; `ID` has no fkOptions, `MEDICAL_STAFF` meta has fkOptions for `ID`.
@@ -2061,7 +2061,7 @@ Run: `cd webapp && npm run dev`
 - [ ] **Step 6: Commit**
 
 ```bash
-git add "webapp/src/app/api/tables"
+git add "stageE/webapp/src/app/api/tables"
 git commit -m "feat: add tables CRUD API routes"
 ```
 
@@ -2072,9 +2072,9 @@ git commit -m "feat: add tables CRUD API routes"
 Wires the metadata-driven UI: table picker, grid, and Add/Update/Delete using the modal form. Reproduces the Tkinter flows (update = enter pk → load → edit with pk locked; delete = enter pk → confirm).
 
 **Files:**
-- Create: `webapp/src/app/(app)/data/page.tsx`
+- Create: `stageE/webapp/src/app/(app)/data/page.tsx`
 
-- [ ] **Step 1: Implement `webapp/src/app/(app)/data/page.tsx`**
+- [ ] **Step 1: Implement `stageE/webapp/src/app/(app)/data/page.tsx`**
 
 ```tsx
 "use client";
@@ -2246,7 +2246,7 @@ export default function DataPage() {
 
 - [ ] **Step 2: Manual verification**
 
-Run: `cd webapp && npm run dev`
+Run: `cd stageE/webapp && npm run dev`
 - Open `/data`, pick a table → grid loads with friendly columns.
 - Add a row in a simple table (e.g. DEPARTMENT) → success toast, grid refreshes.
 - Update: pick PERSON, click עדכן, enter an existing ID → form loads prefilled, ID locked → change a field → save → success.
@@ -2256,7 +2256,7 @@ Run: `cd webapp && npm run dev`
 - [ ] **Step 3: Commit**
 
 ```bash
-git add "webapp/src/app/(app)/data"
+git add "stageE/webapp/src/app/(app)/data"
 git commit -m "feat: add generic metadata-driven CRUD page"
 ```
 
@@ -2265,12 +2265,12 @@ git commit -m "feat: add generic metadata-driven CRUD page"
 ## Task 14: Reports API, Reports page, and chart
 
 **Files:**
-- Create: `webapp/src/app/api/reports/route.ts`
-- Create: `webapp/src/app/api/reports/[key]/run/route.ts`
-- Create: `webapp/src/components/ReportChart.tsx`
-- Create: `webapp/src/app/(app)/reports/page.tsx`
+- Create: `stageE/webapp/src/app/api/reports/route.ts`
+- Create: `stageE/webapp/src/app/api/reports/[key]/run/route.ts`
+- Create: `stageE/webapp/src/components/ReportChart.tsx`
+- Create: `stageE/webapp/src/app/(app)/reports/page.tsx`
 
-- [ ] **Step 1: Implement `webapp/src/app/api/reports/route.ts`**
+- [ ] **Step 1: Implement `stageE/webapp/src/app/api/reports/route.ts`**
 
 ```ts
 import { NextResponse } from "next/server";
@@ -2281,7 +2281,7 @@ export async function GET() {
 }
 ```
 
-- [ ] **Step 2: Implement `webapp/src/app/api/reports/[key]/run/route.ts`**
+- [ ] **Step 2: Implement `stageE/webapp/src/app/api/reports/[key]/run/route.ts`**
 
 ```ts
 import { NextResponse } from "next/server";
@@ -2300,7 +2300,7 @@ export async function POST(_req: Request, { params }: { params: Promise<{ key: s
 }
 ```
 
-- [ ] **Step 3: Implement `webapp/src/components/ReportChart.tsx`**
+- [ ] **Step 3: Implement `stageE/webapp/src/components/ReportChart.tsx`**
 
 ```tsx
 "use client";
@@ -2335,7 +2335,7 @@ export default function ReportChart({
 }
 ```
 
-- [ ] **Step 4: Implement `webapp/src/app/(app)/reports/page.tsx`**
+- [ ] **Step 4: Implement `stageE/webapp/src/app/(app)/reports/page.tsx`**
 
 ```tsx
 "use client";
@@ -2400,7 +2400,7 @@ export default function ReportsPage() {
 
 - [ ] **Step 5: Manual verification**
 
-Run: `cd webapp && npm run dev`
+Run: `cd stageE/webapp && npm run dev`
 - Open `/reports`, default report selected, description shown.
 - Run "התפלגות סוגי דם" → table + bar chart appear.
 - Run "דירוג כלכליות רופאים" → table only (no chart hint).
@@ -2408,7 +2408,7 @@ Run: `cd webapp && npm run dev`
 - [ ] **Step 6: Commit**
 
 ```bash
-git add "webapp/src/app/api/reports" webapp/src/components/ReportChart.tsx "webapp/src/app/(app)/reports"
+git add "stageE/webapp/src/app/api/reports" stageE/webapp/src/components/ReportChart.tsx "stageE/webapp/src/app/(app)/reports"
 git commit -m "feat: add reports API, reports page, and bar chart"
 ```
 
@@ -2417,10 +2417,10 @@ git commit -m "feat: add reports API, reports page, and bar chart"
 ## Task 15: Actions API and Actions page
 
 **Files:**
-- Create: `webapp/src/app/api/actions/[name]/route.ts`
-- Create: `webapp/src/app/(app)/actions/page.tsx`
+- Create: `stageE/webapp/src/app/api/actions/[name]/route.ts`
+- Create: `stageE/webapp/src/app/(app)/actions/page.tsx`
 
-- [ ] **Step 1: Implement `webapp/src/app/api/actions/[name]/route.ts`**
+- [ ] **Step 1: Implement `stageE/webapp/src/app/api/actions/[name]/route.ts`**
 
 ```ts
 import { NextResponse } from "next/server";
@@ -2438,7 +2438,7 @@ export async function POST(req: Request, { params }: { params: Promise<{ name: s
 }
 ```
 
-- [ ] **Step 2: Implement `webapp/src/app/(app)/actions/page.tsx`**
+- [ ] **Step 2: Implement `stageE/webapp/src/app/(app)/actions/page.tsx`**
 
 The action definitions are duplicated here as a client-side constant (the registry in `lib/actions.ts` is server-only because it imports `db`). Keep the two in sync.
 
@@ -2552,7 +2552,7 @@ export default function ActionsPage() {
 
 - [ ] **Step 3: Manual verification**
 
-Run: `cd webapp && npm run dev`
+Run: `cd stageE/webapp && npm run dev`
 - `/actions`: four cards + output panel.
 - "חישוב חשבונית מטופל" with a valid patient id → bill printed in the log.
 - "צוות מחלקה" → roster table appears below + log line.
@@ -2562,7 +2562,7 @@ Run: `cd webapp && npm run dev`
 - [ ] **Step 4: Commit**
 
 ```bash
-git add "webapp/src/app/api/actions" "webapp/src/app/(app)/actions"
+git add "stageE/webapp/src/app/api/actions" "stageE/webapp/src/app/(app)/actions"
 git commit -m "feat: add actions API and actions page (stage-D subprograms)"
 ```
 
@@ -2571,19 +2571,19 @@ git commit -m "feat: add actions API and actions page (stage-D subprograms)"
 ## Task 16: Full-suite check, README, and final parity pass
 
 **Files:**
-- Create: `webapp/README.md`
+- Create: `stageE/webapp/README.md`
 
 - [ ] **Step 1: Run the full unit-test suite**
 
-Run: `cd webapp && npm test`
+Run: `cd stageE/webapp && npm test`
 Expected: all suites pass (queryBuilders, metadata, reports, session).
 
 - [ ] **Step 2: Production build**
 
-Run: `cd webapp && npm run build`
+Run: `cd stageE/webapp && npm run build`
 Expected: build completes with no type errors.
 
-- [ ] **Step 3: Write `webapp/README.md`**
+- [ ] **Step 3: Write `stageE/webapp/README.md`**
 
 ```markdown
 # Hospital Management System — Web App
@@ -2592,7 +2592,7 @@ Next.js + TypeScript rebuild of the stage-E desktop app. Reuses the existing
 Supabase Postgres database unchanged.
 
 ## Setup
-1. `cd webapp && npm install`
+1. `cd stageE/webapp && npm install`
 2. Copy `.env.example` to `.env.local` and fill in `DATABASE_URL`, `APP_USERNAME`,
    `APP_PASSWORD`, `SESSION_SECRET`.
 3. `npm run dev` → open http://localhost:3000
@@ -2623,7 +2623,7 @@ Manually confirm each item, fixing any gaps before committing:
 - [ ] **Step 5: Commit**
 
 ```bash
-git add webapp/README.md
+git add stageE/webapp/README.md
 git commit -m "docs: add webapp README and finalize parity"
 ```
 
