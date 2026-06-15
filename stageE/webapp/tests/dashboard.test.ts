@@ -18,6 +18,10 @@ describe("dashboard KPIs", () => {
     expect(parseKpis([0, 0, 0, 0, 0, 0]).occupancyPct).toBe(0);
   });
 
+  it("clamps occupancyPct to 100 when distinct patients exceed bed count", () => {
+    expect(parseKpis([0, 0, 0, 0, 10, 25]).occupancyPct).toBe(100);
+  });
+
   it("coerces string/null DB values to numbers", () => {
     const k = parseKpis(["120", null, "5", "0", "80", "40"]);
     expect(k.patients).toBe(120);
