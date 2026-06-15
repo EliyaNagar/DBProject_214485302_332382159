@@ -102,6 +102,8 @@ export async function callProcedure(
     await client.query(callSql, params);
     return notices;
   } finally {
+    (client as unknown as { removeListener: (e: string, cb: typeof onNotice) => void })
+      .removeListener("notice", onNotice);
     client.release();
   }
 }
@@ -127,7 +129,11 @@ export async function fetchRefcursor(
     const columns = res.fields.map((f) => f.name);
     return { columns, rows: res.rows as unknown[][] };
   } catch (e) {
-    await client.query("ROLLBACK");
+    try {
+      await client.query("ROLLBACK");
+    } catch {
+      /* ignore rollback failure; preserve original error */
+    }
     throw e;
   } finally {
     client.release();
