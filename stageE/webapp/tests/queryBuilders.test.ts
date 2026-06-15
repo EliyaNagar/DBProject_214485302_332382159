@@ -27,6 +27,26 @@ describe("buildUpdate", () => {
     );
     expect(q.params).toEqual([9000, "a@b.c", 5]);
   });
+
+  it("handles multiple pk columns with correct placeholder numbering", () => {
+    const q = buildUpdate(
+      "T",
+      ["id", "sk"],
+      [1, "key"],
+      { id: 1, sk: "key", val: 99 }
+    );
+    expect(q.sql).toBe("UPDATE T SET val = $1 WHERE id = $2 AND sk = $3");
+    expect(q.params).toEqual([99, 1, "key"]);
+  });
+
+  it("throws when there are no non-pk columns to update", () => {
+    expect(() =>
+      buildUpdate("ADDRESS", ["city", "street"], ["Haifa", "Herzl"], {
+        city: "Haifa",
+        street: "Herzl",
+      })
+    ).toThrow();
+  });
 });
 
 describe("buildDelete", () => {

@@ -14,6 +14,9 @@ export function buildUpdate(
   data: Record<string, unknown>
 ): BuiltQuery {
   const setCols = Object.keys(data).filter((c) => !pkCols.includes(c));
+  if (setCols.length === 0) {
+    throw new Error("אין שדות לעדכון (כל העמודות הן חלק מהמפתח הראשי).");
+  }
   const setClause = setCols.map((c, i) => `${c} = $${i + 1}`).join(", ");
   const where = pkCols
     .map((c, i) => `${c} = $${setCols.length + i + 1}`)
