@@ -35,7 +35,7 @@ export default function LoginPage() {
     <div className="login-wrap">
       <form onSubmit={submit} className="login-card">
         <div className="login-badge">HOSPITAL SYSTEM</div>
-        <h1 className="login-title">🏥 כניסה למערכת</h1>
+        <h1 className="login-title">כניסה למערכת</h1>
         <div className="field">
           <label className="field-label">שם משתמש</label>
           <input className="input" value={username} onChange={(e) => setUsername(e.target.value)} autoFocus />

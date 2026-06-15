@@ -7,26 +7,26 @@ import { useToast } from "@/components/Toast";
 import type { GridResult } from "@/types";
 
 interface ActionParam { name: string; label: string; default?: string; }
-interface ActionUi { name: string; title: string; signature: string; color: string; params: ActionParam[]; }
+interface ActionUi { name: string; title: string; signature: string; params: ActionParam[]; }
 
 const ACTIONS: ActionUi[] = [
   { name: "calculate_patient_bill", title: "פונקציה: חישוב חשבונית מטופל",
-    signature: "calculate_patient_bill(patient_id)", color: "var(--primary)",
+    signature: "calculate_patient_bill(patient_id)",
     params: [{ name: "patient_id", label: "מזהה מטופל:", default: "328308725" }] },
   { name: "get_department_roster_cursor", title: "פונקציה (REF CURSOR): צוות מחלקה לפי שכר",
-    signature: "get_department_roster_cursor(dep_id, min_salary)", color: "var(--primary)",
+    signature: "get_department_roster_cursor(dep_id, min_salary)",
     params: [
       { name: "dep_id", label: "מחלקה:", default: "2" },
       { name: "min_salary", label: "שכר מינ':", default: "0" },
     ] },
   { name: "apply_salary_bonus_by_performance", title: "פרוצדורה: בונוס שכר לרופאים מצטיינים",
-    signature: "apply_salary_bonus_by_performance(min_treatments, bonus_percent)", color: "var(--primary)",
+    signature: "apply_salary_bonus_by_performance(min_treatments, bonus_percent)",
     params: [
       { name: "min_treatments", label: "מינ' טיפולים:", default: "2" },
       { name: "bonus_percent", label: "אחוז בונוס:", default: "10" },
     ] },
   { name: "reassign_doctor_department", title: "פרוצדורה: העברת רופא למחלקה אחרת",
-    signature: "reassign_doctor_department(doc_id, new_dep_id)", color: "var(--primary)",
+    signature: "reassign_doctor_department(doc_id, new_dep_id)",
     params: [
       { name: "doc_id", label: "מזהה רופא:", default: "" },
       { name: "new_dep_id", label: "מחלקה חדשה:", default: "" },
@@ -55,22 +55,22 @@ export default function ActionsPage() {
     if (!res.ok) { toast.show("error", data.message); return; }
 
     if (data.scalar !== undefined && data.scalar !== null) {
-      append(`💰 תוצאה: ${data.scalar}`);
+      append(`תוצאה: ${data.scalar}`);
     }
     if (data.notices) {
-      append(`✅ ${a.title}:`);
+      append(`${a.title}:`);
       if (data.notices.length === 0) append("   הפעולה הסתיימה (ראה השפעה בטבלאות).");
       for (const n of data.notices) append("   " + n);
     }
     if (data.grid) {
       setGrid(data.grid);
-      append(`📋 התקבלו ${data.grid.rows.length} שורות (ראה טבלה למטה).`);
+      append(`התקבלו ${data.grid.rows.length} שורות (ראה טבלה למטה).`);
     }
   }
 
   return (
     <>
-      <TopBar title="⚙️ פעולות מתקדמות — פונקציות ופרוצדורות" />
+      <TopBar title="פעולות מתקדמות — פונקציות ופרוצדורות" />
       <div className="stack-grid stagger">
         {ACTIONS.map((a) => (
           <Card key={a.name}>
