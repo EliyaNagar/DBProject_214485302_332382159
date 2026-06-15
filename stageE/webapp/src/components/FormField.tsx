@@ -13,14 +13,14 @@ export default function FormField({
   onChange: (v: string) => void;
 }) {
   const label = (
-    <label style={{ display: "block", marginBottom: 4, fontWeight: 600 }}>
+    <label className="field-label">
       {column.label}
     </label>
   );
 
   if (column.fk && fkOptions) {
     return (
-      <div style={{ marginBottom: 12 }}>
+      <div className="field">
         {label}
         <select className="select" value={value} disabled={locked}
           onChange={(e) => onChange(e.target.value)}>
@@ -35,7 +35,7 @@ export default function FormField({
 
   if (column.options) {
     return (
-      <div style={{ marginBottom: 12 }}>
+      <div className="field">
         {label}
         <select className="select" value={value} disabled={locked}
           onChange={(e) => onChange(e.target.value)}>
@@ -47,7 +47,7 @@ export default function FormField({
   }
 
   return (
-    <div style={{ marginBottom: 12 }}>
+    <div className="field">
       {label}
       <input className="input" value={value} readOnly={locked}
         onChange={(e) => onChange(e.target.value)} />

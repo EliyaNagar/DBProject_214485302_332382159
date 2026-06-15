@@ -71,15 +71,15 @@ export default function ActionsPage() {
   return (
     <>
       <TopBar title="⚙️ פעולות מתקדמות — פונקציות ופרוצדורות" />
-      <div style={{ display: "grid", gap: 16 }}>
+      <div className="stack-grid stagger">
         {ACTIONS.map((a) => (
-          <Card key={a.name} style={{ borderInlineStart: `5px solid ${a.color}` }}>
+          <Card key={a.name}>
             <h3 style={{ margin: "0 0 4px" }}>{a.title}</h3>
-            <code style={{ color: "var(--muted)" }}>{a.signature}</code>
+            <code className="code-sig">{a.signature}</code>
             <div style={{ display: "flex", gap: 12, alignItems: "flex-end", flexWrap: "wrap", marginTop: 12 }}>
               {a.params.map((p) => (
-                <div key={p.name}>
-                  <label style={{ display: "block", fontSize: 13, fontWeight: 600 }}>{p.label}</label>
+                <div key={p.name} className="field" style={{ marginBottom: 0 }}>
+                  <label className="field-label">{p.label}</label>
                   <input className="input" style={{ width: 140 }}
                     value={values[`${a.name}.${p.name}`] ?? ""}
                     onChange={(e) => setValues((v) => ({ ...v, [`${a.name}.${p.name}`]: e.target.value }))} />
@@ -92,10 +92,7 @@ export default function ActionsPage() {
 
         <Card>
           <h3 style={{ marginTop: 0 }}>פלט</h3>
-          <pre style={{
-            background: "#0f172a", color: "#bae6fd", borderRadius: 10, padding: 14,
-            maxHeight: 220, overflow: "auto", whiteSpace: "pre-wrap", margin: 0,
-          }}>{log.join("\n")}</pre>
+          <pre className="output-log">{log.join("\n")}</pre>
         </Card>
 
         {grid && <DataTable data={grid} />}

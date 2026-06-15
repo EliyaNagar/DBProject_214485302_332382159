@@ -19,26 +19,21 @@ export default function Sidebar() {
   }
 
   return (
-    <aside style={{
-      width: 240, background: "var(--primary)", color: "#fff", display: "flex",
-      flexDirection: "column", padding: 18, gap: 6, minHeight: "100vh",
-    }}>
-      <div style={{ fontSize: 18, fontWeight: 700, padding: "8px 10px 18px" }}>
+    <aside className="sidebar">
+      <div className="sidebar-brand">
         🏥 בית חולים
+        <small>מערכת ניהול</small>
       </div>
       {NAV.map((n) => {
         const active = pathname === n.href;
         return (
-          <Link key={n.href} href={n.href} style={{
-            color: "#fff", textDecoration: "none", padding: "10px 12px",
-            borderRadius: 10, fontWeight: 600,
-            background: active ? "rgba(255,255,255,.18)" : "transparent",
-          }}>
+          <Link key={n.href} href={n.href} className={"nav-link" + (active ? " active" : "")}>
             {n.label}
           </Link>
         );
       })}
-      <button className="btn btn-red" onClick={logout} style={{ marginTop: "auto" }}>
+      <div className="sidebar-spacer" />
+      <button className="btn btn-red" onClick={logout}>
         🚪 התנתק
       </button>
     </aside>

@@ -135,15 +135,17 @@ export default function DataPage() {
   return (
     <>
       <TopBar title="🗄️ ניהול נתונים — כל הטבלאות" />
-      <Card style={{ marginBottom: 20, display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
-        <select className="select" style={{ maxWidth: 320 }} value={tableKey}
-          onChange={(e) => setTableKey(e.target.value)}>
-          {tables.map((t) => <option key={t.key} value={t.key}>{t.label}</option>)}
-        </select>
-        <button className="btn btn-accent" onClick={() => loadGrid(tableKey)}>🔄 רענן</button>
-        <button className="btn btn-green" onClick={startInsert}>➕ הוסף</button>
-        <button className="btn btn-amber" onClick={startUpdate}>✏️ עדכן</button>
-        <button className="btn btn-red" onClick={deleteRecord}>🗑️ מחק</button>
+      <Card style={{ marginBottom: 20 }}>
+        <div className="toolbar">
+          <select className="select" value={tableKey}
+            onChange={(e) => setTableKey(e.target.value)}>
+            {tables.map((t) => <option key={t.key} value={t.key}>{t.label}</option>)}
+          </select>
+          <button className="btn btn-accent" onClick={() => loadGrid(tableKey)}>🔄 רענן</button>
+          <button className="btn btn-green" onClick={startInsert}>➕ הוסף</button>
+          <button className="btn btn-amber" onClick={startUpdate}>✏️ עדכן</button>
+          <button className="btn btn-red" onClick={deleteRecord}>🗑️ מחק</button>
+        </div>
       </Card>
 
       <DataTable data={grid} />
@@ -155,7 +157,7 @@ export default function DataPage() {
             locked={lockPk && c.pk}
             onChange={(v) => setForm((f) => ({ ...f, [c.name]: v }))} />
         ))}
-        <div style={{ display: "flex", gap: 10, marginTop: 16 }}>
+        <div className="modal-actions">
           <button className="btn btn-green" onClick={save}>שמור</button>
           <button className="btn btn-ghost" onClick={() => setOpen(false)}>ביטול</button>
         </div>

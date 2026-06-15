@@ -38,14 +38,16 @@ export default function ReportsPage() {
   return (
     <>
       <TopBar title="📊 דוחות מערכת — הרצת שאילתות" />
-      <Card style={{ marginBottom: 20, display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
-        <select className="select" style={{ maxWidth: 360 }} value={sel}
-          onChange={(e) => setSel(e.target.value)}>
-          {reports.map((r) => <option key={r.key} value={r.key}>{r.label}</option>)}
-        </select>
-        <button className="btn btn-green" onClick={run}>▶️ הרץ שאילתה</button>
-        <span style={{ color: "var(--muted)", fontStyle: "italic" }}>{desc}</span>
-      </Card>
+      <div className="card" style={{ marginBottom: 20 }}>
+        <div className="toolbar">
+          <select className="select" value={sel}
+            onChange={(e) => setSel(e.target.value)}>
+            {reports.map((r) => <option key={r.key} value={r.key}>{r.label}</option>)}
+          </select>
+          <button className="btn btn-green" onClick={run}>▶️ הרץ שאילתה</button>
+          <span className="toolbar-hint">{desc}</span>
+        </div>
+      </div>
 
       {grid && chart && (
         <Card style={{ marginBottom: 20 }}>

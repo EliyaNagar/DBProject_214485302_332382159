@@ -1,9 +1,14 @@
-export default function Card({ children, style }: { children: React.ReactNode; style?: React.CSSProperties }) {
+export default function Card({
+  children,
+  style,
+  interactive = false,
+}: {
+  children: React.ReactNode;
+  style?: React.CSSProperties;
+  interactive?: boolean;
+}) {
   return (
-    <div style={{
-      background: "var(--surface)", borderRadius: "var(--radius)",
-      boxShadow: "var(--shadow)", padding: 20, ...style,
-    }}>
+    <div className={"card" + (interactive ? " card-interactive" : "")} style={style}>
       {children}
     </div>
   );
